@@ -37,10 +37,10 @@
 			"Description": "Decide how long it will take to bind your masterpiece in its new cover! Set the number of minutes it takes to bind a manuscript with a cover in the bookbinding machine."
 		},
 
-		"PrintingTime": {
-			"Default": 7560,
-			"Description": "Decide how long it will take to create copies of your masterpiece! Set the number of minutes it takes to make copies of a manuscript in the printing press."
-		},
+		// "PrintingTime": {
+		// 	"Default": 7560,
+		// 	"Description": "Decide how long it will take to create copies of your masterpiece! Set the number of minutes it takes to make copies of a manuscript in the printing press."
+		// },
 
 		"BookPrice": {
 			"Default": 10000,
@@ -50,7 +50,7 @@
 		"MachineColor": {
 			"AllowValues": "Oak, Walnut, Birch, Mahogany, Modern, Winter",
 			"Default": "Oak",
-			"Description": "Make your writing utensils match your home! Choose the color of the writing desk, bookbinding machine, and printing press."
+			"Description": "Make your writing utensils match your home! Choose the color of the writing desk and bookbinding machine."
 		},
 
 	},
@@ -95,11 +95,11 @@
 			"FromFile": "Assets/{{MachineColor}}_BookBindingMachine.png"
 		},
 
-		{
-			"Action": "Load",
-			"Target": "Mods/{{ModId}}/printer",
-			"FromFile": "Assets/{{MachineColor}}_PrintingPress.png"
-		},
+		// {
+		// 	"Action": "Load",
+		// 	"Target": "Mods/{{ModId}}/printer",
+		// 	"FromFile": "Assets/{{MachineColor}}_PrintingPress.png"
+		// },
 
 	// Add New Objects //////////////////////////////////////////////////////////
 
@@ -220,23 +220,23 @@
 		},
 	},
 
-	{
-		"Action": "EditData",
-		"Target": "Data/BigCraftables",
-		"Entries": {
-			"{{ModId}}_PrintingPress": {
-				"Name": "{{ModId}}_PrintingPress",
-				"DisplayName": "{{i18n:Si.printingpress.name}}",
-				"Description": "{{i18n:Si.printingpress.desc}}",
-				"Texture": "Mods/{{ModId}}/printer",
-				"Price": 50,
-				"Fragility": 0,
-				"CanBePlacedOutdoors": true,
-				"CanBePlacedIndoors": true,
-				"SpriteIndex": 0,
-			},
-		},
-	},
+	// {
+	// 	"Action": "EditData",
+	// 	"Target": "Data/BigCraftables",
+	// 	"Entries": {
+	// 		"{{ModId}}_PrintingPress": {
+	// 			"Name": "{{ModId}}_PrintingPress",
+	// 			"DisplayName": "{{i18n:Si.printingpress.name}}",
+	// 			"Description": "{{i18n:Si.printingpress.desc}}",
+	// 			"Texture": "Mods/{{ModId}}/printer",
+	// 			"Price": 50,
+	// 			"Fragility": 0,
+	// 			"CanBePlacedOutdoors": true,
+	// 			"CanBePlacedIndoors": true,
+	// 			"SpriteIndex": 0,
+	// 		},
+	// 	},
+	// },
 
 	// Add Crafting Recipes //////////////////////////////////////////////////////////
 
@@ -262,16 +262,16 @@
 		}
 	},
 
-	{
-		"Action": "EditData",
-		"Target": "Data/CraftingRecipes", // hardwood iron bar ink
-		"Entries": {
-            "{{ModId}}_PrintingPress": "709 20 335 10 814 20/Field/{{ModId}}_PrintingPress/true/default/",
-        },
-		"When": {
-				"HasSeenEvent:hostPlayer |contains={{ModId}}_Inspiration": true,
-		}
-	},
+	// {
+	// 	"Action": "EditData",
+	// 	"Target": "Data/CraftingRecipes", // hardwood iron bar ink
+	// 	"Entries": {
+    //         "{{ModId}}_PrintingPress": "709 20 335 10 814 20/Field/{{ModId}}_PrintingPress/true/default/",
+    //     },
+	// 	"When": {
+	// 			"HasSeenEvent:hostPlayer |contains={{ModId}}_Inspiration": true,
+	// 	}
+	// },
 
 	// Add Machine Rules //////////////////////////////////////////////////////////
 
@@ -353,40 +353,40 @@
 			},
 		},
 
-		{
-			"Action": "EditData",
-			"Target": "Data/Machines",
-			"Entries": {
-				"(BC){{ModId}}_PrintingPress": {
-					"OutputRules": [
-						{
-							"Id": "{{ModId}}_printbook",
-							"Triggers": [
-								{
-									"Id": "ItemPlacedInMachine_manuscript",
-									"Trigger": "ItemPlacedInMachine",
-									"RequiredItemId": "(O){{ModId}}_manuscript",
-									"RequiredCount": 1
-								},
-								{
-									"Id": "ItemTaken_manuscript",
-									"Trigger": "OutputCollected",
-									"RequiredItemId": "null",
-									"RequiredCount": 1
-								},
-							],
-							"UseFirstValidOutput": false,
-							"OutputItem": [
-								{
-									"ItemId": "(O){{ModId}}_manuscript"
-								}
-							],
-							"MinutesUntilReady": "{{PrintingTime}}"
-						}
-					],
-				}
-			},
-		},
+		// {
+		// 	"Action": "EditData",
+		// 	"Target": "Data/Machines",
+		// 	"Entries": {
+		// 		"(BC){{ModId}}_PrintingPress": {
+		// 			"OutputRules": [
+		// 				{
+		// 					"Id": "{{ModId}}_printbook",
+		// 					"Triggers": [
+		// 						{
+		// 							"Id": "ItemPlacedInMachine_manuscript",
+		// 							"Trigger": "ItemPlacedInMachine",
+		// 							"RequiredItemId": "(O){{ModId}}_manuscript",
+		// 							"RequiredCount": 1
+		// 						},
+		// 						{
+		// 							"Id": "ItemTaken_manuscript",
+		// 							"Trigger": "OutputCollected",
+		// 							"RequiredItemId": "null",
+		// 							"RequiredCount": 1
+		// 						},
+		// 					],
+		// 					"UseFirstValidOutput": false,
+		// 					"OutputItem": [
+		// 						{
+		// 							"ItemId": "(O){{ModId}}_manuscript"
+		// 						}
+		// 					],
+		// 					"MinutesUntilReady": "{{PrintingTime}}"
+		// 				}
+		// 			],
+		// 		}
+		// 	},
+		// },
 
 	// End //////////////////////////////////////////////////////////
 
