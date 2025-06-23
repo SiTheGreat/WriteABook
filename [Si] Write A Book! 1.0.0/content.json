@@ -8,44 +8,49 @@
 
 		"BookTitle": {
 			"Default": "Autobiography of a Farmer",
-			"Description": "Choose a single word or phrase to describe the pinnacle of your life's work!"
+			"Description": "Choose a single word or phrase to describe the pinnacle of your life's work! Enter your book's title here."
 		},
 
 		"BookDescription": {
 			"Default": "A glimpse into the very simple life of a Stardew Valley farmer.",
-			"Description": "Describe your story in excruciating detail!"
+			"Description": "Describe your story in excruciating detail! Enter your book's description here."
 		},
 
 		"BookColor": {
 			"AllowValues": "Red, Yellow, LightGreen, DarkGreen, Blue, Purple, Pink, Black, Ace, Agender, Aro, Aroace, Balloon, Bi, BlackBat, Boat, Butterfly1, Butterfly2, Cat, Chef, Cloud, Cocoa, Cream, Dog, Frog, Gay, Heart, Horse, House, Intersex, Joja, Leaf, Lesbian, Magic, Mushroom, Nonbinary, Pan, Parsnip, Pine, Planet, Pride, Progress, Pumpkin, RedBat, Skull, Star1, Star2, Storm, Sun, Sunflower, Sword, Trans, UFO, Umbrella, YellowBat",
 			"Default": "Purple",
-			"Description": "Always judge a book by its cover!"
+			"Description": "Always judge a book by its cover! Choose what cover your book will use. See mod page Images tab for what each cover looks like."
 		},
 
 		"BookLength": {
 			"Default": 400,
-			"Description": "Decide the length of the tales you tell!"
+			"Description": "Decide the length of the tales you tell! Set the amount of paper needed to craft a book."
 		},
 
 		"WritingTime": {
 			"Default": 15120,
-			"Description": "Decide how long it will take to draft your masterpiece!"
+			"Description": "Decide how long it will take to draft your masterpiece! Set the number of minutes it takes to craft a manuscript using the writing desk."
 		},
 
 		"BindingTime": {
 			"Default": 7560,
-			"Description": "Decide how long it will take to draft your masterpiece!"
+			"Description": "Decide how long it will take to bind your masterpiece in its new cover! Set the number of minutes it takes to bind a manuscript with a cover in the bookbinding machine."
+		},
+
+		"PrintingTime": {
+			"Default": 7560,
+			"Description": "Decide how long it will take to create copies of your masterpiece! Set the number of minutes it takes to make copies of a manuscript in the printing press."
 		},
 
 		"BookPrice": {
 			"Default": 10000,
-			"Description": "Decide what your passionately inscribed words are worth!"
+			"Description": "Decide what your passionately inscribed words are worth! Set the sell price of your book.",
 		},
 
 		"MachineColor": {
 			"AllowValues": "Oak, Walnut, Birch, Mahogany, Modern, Winter",
 			"Default": "Oak",
-			"Description": "Make sure your machines match your home!"
+			"Description": "Make your writing utensils match your home! Choose the color of the writing desk, bookbinding machine, and printing press."
 		},
 
 	},
@@ -60,7 +65,7 @@
 			"Action": "EditData",
 			"Target": "Data/Events/Farm", // e 1848481 Elliott 8h event
 			"Entries": {
-				"{{ModId}}_Inspiration/e 1848481/f Elliott 2000": "continue/26 25/farmer 15 31 0/fade/pause 400//message \"You are overcome by a burst of inspiration.\"/pause 200/end/fade",
+				"{{ModId}}_Inspiration/e 1848481/f Elliott 500": "continue/26 25/farmer 15 31 0/fade/pause 400/message \"You are overcome by a burst of inspiration.\"/pause 200/end/fade",
 				}
 		},
 
@@ -88,6 +93,12 @@
 			"Action": "Load",
 			"Target": "Mods/{{ModId}}/binder",
 			"FromFile": "Assets/{{MachineColor}}_BookBindingMachine.png"
+		},
+
+		{
+			"Action": "Load",
+			"Target": "Mods/{{ModId}}/printer",
+			"FromFile": "Assets/{{MachineColor}}_PrintingPress.png"
 		},
 
 	// Add New Objects //////////////////////////////////////////////////////////
@@ -209,6 +220,24 @@
 		},
 	},
 
+	{
+		"Action": "EditData",
+		"Target": "Data/BigCraftables",
+		"Entries": {
+			"{{ModId}}_PrintingPress": {
+				"Name": "{{ModId}}_PrintingPress",
+				"DisplayName": "{{i18n:Si.printingpress.name}}",
+				"Description": "{{i18n:Si.printingpress.desc}}",
+				"Texture": "Mods/{{ModId}}/printer",
+				"Price": 50,
+				"Fragility": 0,
+				"CanBePlacedOutdoors": true,
+				"CanBePlacedIndoors": true,
+				"SpriteIndex": 0,
+			},
+		},
+	},
+
 	// Add Crafting Recipes //////////////////////////////////////////////////////////
 
 	{
@@ -227,6 +256,17 @@
 		"Target": "Data/CraftingRecipes", // hardwood iron bar
 		"Entries": {
             "{{ModId}}_BookBindingMachine": "709 50 335 2/Field/{{ModId}}_BookBindingMachine/true/default/",
+        },
+		"When": {
+				"HasSeenEvent:hostPlayer |contains={{ModId}}_Inspiration": true,
+		}
+	},
+
+	{
+		"Action": "EditData",
+		"Target": "Data/CraftingRecipes", // hardwood iron bar ink
+		"Entries": {
+            "{{ModId}}_PrintingPress": "709 20 335 10 814 20/Field/{{ModId}}_PrintingPress/true/default/",
         },
 		"When": {
 				"HasSeenEvent:hostPlayer |contains={{ModId}}_Inspiration": true,
@@ -308,6 +348,41 @@
 									"RequiredCount": 1,
 									"InvalidCountMessage": "{{i18n:Si.bookbinder.glue}}"
 								},
+					],
+				}
+			},
+		},
+
+		{
+			"Action": "EditData",
+			"Target": "Data/Machines",
+			"Entries": {
+				"(BC){{ModId}}_PrintingPress": {
+					"OutputRules": [
+						{
+							"Id": "{{ModId}}_printbook",
+							"Triggers": [
+								{
+									"Id": "ItemPlacedInMachine_manuscript",
+									"Trigger": "ItemPlacedInMachine",
+									"RequiredItemId": "(O){{ModId}}_manuscript",
+									"RequiredCount": 1
+								},
+								{
+									"Id": "ItemTaken_manuscript",
+									"Trigger": "OutputCollected",
+									"RequiredItemId": "null",
+									"RequiredCount": 1
+								},
+							],
+							"UseFirstValidOutput": false,
+							"OutputItem": [
+								{
+									"ItemId": "(O){{ModId}}_manuscript"
+								}
+							],
+							"MinutesUntilReady": "{{PrintingTime}}"
+						}
 					],
 				}
 			},
