@@ -18,7 +18,7 @@
 	"config.BindingTime.description": "Decide how long it will take to bind your masterpiece in its new cover! Set the number of minutes it takes to bind a manuscript with a cover in the bookbinding machine.",
 	// "config.PrintingTime.description": "Decide how long it will take to create copies of your masterpiece! Set the number of minutes it takes to make copies of a manuscript in the printing press.",
 	"config.BookPrice.description": "Decide what your passionately inscribed words are worth! Set the sell price of your book.",
-	"config.MachineColor.description": "Make your writing utensils match your home! Choose the color of the writing desk, bookbinding machine, and printing press.",
+	"config.MachineColor.description": "Make your writing utensils match your home! Choose the color of the writing desk and bookbinding machine.",
 	// Config machine color options
 	"config.MachineColor.values.Oak": "Oak",
 	"config.MachineColor.values.Walnut": "Walnut",
@@ -93,6 +93,6 @@
 	"Si.bookbinder.glue": "You'll need some glue to attach the cover to your book.",
 	"Si.manuscript.name": "Manuscript",
 	"Si.manuscript.desc": "The final draft of your book!",
-	"Si.printingpress.name": "Printing Press",
-	"Si.printingpress.desc": "A machine that creates copies of your manuscript.",
+	// "Si.printingpress.name": "Printing Press",
+	// "Si.printingpress.desc": "A machine that creates copies of your manuscript.",
 }
